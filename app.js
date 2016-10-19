@@ -11,11 +11,11 @@ var multer = require('multer');
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var admin = require('./routes/admin');
 
 var app = express();
 
-app.use(multer({ dest: './public/img/portfolio/' }).any());
+app.use(multer({ dest: './public/img/portfolio/' }).single('projectimag'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,12 +41,30 @@ app.use(flash());
 // Global Variables
 app.locals.moment = require('moment');
 app.use(function(req, res, next) {
-    app.locals.messages = require('express-messages')(req, res);
+    res.locals.messages = require('express-messages')(req, res);
     next();
 });
 
+//Express Validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+ 
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
 app.use('/', routes);
-app.use('/users', users);
+app.use('/admin', admin);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
