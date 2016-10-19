@@ -1,4 +1,4 @@
-.addProject {
+.addProject, .editProject {
   width: 600px;
   margin:auto;
   background: #ccc;

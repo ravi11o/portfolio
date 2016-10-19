@@ -15,7 +15,7 @@ var admin = require('./routes/admin');
 
 var app = express();
 
-app.use(multer({ dest: './public/img/portfolio/' }).single('projectimag'));
+app.use(multer({ dest: './public/img/portfolio/' }).single('projectimage'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
