@@ -81,8 +81,9 @@ router.post('/new', function(req, res, next) {
 router.get('/edit/:id', function(req, res) {
   connection.query('SELECT * FROM projects WHERE id ='+req.params.id, function(err, row, fields) {
     if(err) throw err;
+    console.log(row);
     res.render('edit', {
-      'row': row[0],
+      'row': row['0'],
       layout : 'layout2'
     });
   });

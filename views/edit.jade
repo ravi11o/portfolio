@@ -3,6 +3,10 @@ extends layout2
 block content
         .editProject
             h2 Edit Project
+            ul.errors
+                if errors
+                    each error, i in errors
+                        li.alert.alert-danger #{error.msg}
             form(method='post', action='/admin/edit/#{row.id}', enctype='multipart/form-data')
                 .form-group
                     label Title
